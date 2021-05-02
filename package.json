@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "axios": "^0.21.1"
+  "devDependencies": {
+    "@testing-library/react": "^11.2.6"
   }
 }

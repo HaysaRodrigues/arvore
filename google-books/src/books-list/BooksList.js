@@ -1,21 +1,31 @@
 import React from 'react';
-
-import axios from 'axios';
+import BookCard from "../book-card/BookCard";
 
 export default class BooksList extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            image: ''
+        }
+    }
+
+
     componentDidMount() {
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=Query&startIndex=0&maxResults=10`)
-            .then(response => {
-                console.log(response.data)
-            })
+       this.getBookInformation();
+    }
+
+    getBookInformation() {
+        fetch('https://www.googleapis.com/books/v1/volumes?q=Query&startIndex=0&maxResults=10')
+            .then(response => response.json())
+            .then(data => this.setState({image: data.items[0].volumeInfo.imageLinks.smallThumbnail}))
     }
 
     render() {
         return (
-            <div>
-               haysa
-            </div>
+            <>
+                <BookCard image={this.state.image}/>
+            </>
         )
     }
 }
