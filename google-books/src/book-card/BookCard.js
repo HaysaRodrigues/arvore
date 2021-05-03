@@ -4,7 +4,10 @@ export  default function BookCard(props) {
 
     return (
         <div>
-            <img src={props.image}/>
+            <img
+                className={'bookImage'}
+                src={props.image}/>
+            <p>{props.bookTitle}</p>
         </div>
     );
 }
