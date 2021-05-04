@@ -2,40 +2,31 @@ import React from 'react';
 import axios from 'axios';
 import BookCard from "../book-card/BookCard";
 
+const URL = 'https://www.googleapis.com/books/v1/volumes?q=Query&startIndex=0&maxResults=20';
 export default class BooksList extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            bookInfo: {
-                title: '',
-                imageLinks: {
-                    smallThumbnail: ''
-                }
-            },
-
+            books: []
         }
     }
 
-
     async componentDidMount() {
-        const response = await axios.get('https://www.googleapis.com/books/v1/volumes?q=Query&startIndex=0&maxResults=5');
+        const response = await axios.get(URL);
         const { data } = response;
-        this.setState({bookInfo: data.items[1].volumeInfo});
+        this.setState({books: data.items});
     }
 
-
     render() {
-
-        const title = this.state.bookInfo.title;
-        const image = this.state.bookInfo.imageLinks.smallThumbnail;
-
         return (
             <>
-                <BookCard
-                    image={image}
-                    bookTitle={title}
-                />
+                {this.state.books.map((book, index) => (
+                    <BookCard
+                        key={book.id}
+                        image={book.volumeInfo.imageLinks.smallThumbnail}
+                        bookTitle={book.volumeInfo.title}/>
+                ))}
             </>
         )
     }
