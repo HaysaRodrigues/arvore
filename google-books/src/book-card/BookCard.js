@@ -1,6 +1,6 @@
 import React from 'react';
 
-export  default function BookCard(props) {
+export default function BookCard(props) {
 
     return (
         <div>
